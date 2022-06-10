@@ -22,15 +22,17 @@ export class ForgotPasswordComponent implements OnInit {
   isUserValid: boolean = false;
 
   forgotSubmited(){
-this.forgotAuth
-.loginUser(this.forgotForm.value.email)
+this.forgotAuth 
+.forgotUser([this.forgotForm.value.email,
+  this.forgotForm.value.mobile])
 .subscribe(res => {
-  if(res == 'Failure'){
+  //console.log(res)
+  if(res == 'failure'){
     this.isUserValid = false;
-    alert("Login Unsuccessful");
+    alert("Paasword Reset Unsuccessful");
   }else{
     this.isUserValid = true;
-    alert('Login Successful');
+    alert('Password Reset Successful');
     this.router.navigateByUrl('home')
   }
 });
@@ -40,6 +42,7 @@ get Email(): FormControl{
   return this.forgotForm.get("email") as FormControl; 
 }
 get Mobile(): FormControl{
-  return this. forgotForm.get("mobile") as FormControl;
+  return this.forgotForm.get("email") as FormControl; 
 }
+
 }

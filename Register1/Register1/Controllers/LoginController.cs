@@ -91,8 +91,7 @@ namespace Register1.Controllers
         return Ok(e);
       }
     }
-
-  
+    
 
     // PUT api/<LoginController>/5
     [HttpPut("{id}")]

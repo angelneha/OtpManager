@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  post(email: any) {
+    throw new Error('Method not implemented.');
+  }
 
 
   constructor(private http: HttpClient) { }
@@ -21,6 +24,15 @@ export class AuthService {
     return this.http.post("https://localhost:5001/api/Login",{
       Email: loginInfo[0],
       Pwd: loginInfo[1]
+    },
+    {
+      responseType: "text",
+    }
+    );
+  }
+  forgotUser(forgotInfo: any){
+    return this.http.post("https://localhost:5001/api/Password",{
+      Email: forgotInfo[0]
     },
     {
       responseType: "text",
