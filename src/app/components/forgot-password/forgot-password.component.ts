@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import * as crypto from "crypto-js";
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,7 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
   forgotForm = new FormGroup({
     email: new FormControl("",[Validators.required,Validators.email]),
-    mobile: new FormControl("",[Validators.required,Validators.pattern("[0-9]*"), Validators.minLength(10),Validators.maxLength(10)])
+    pwd: new FormControl("",[Validators.required, Validators.minLength(6),Validators.maxLength(10)]),
     
   });
   isUserValid: boolean = false;
@@ -24,7 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
   forgotSubmited(){
 this.forgotAuth 
 .forgotUser([this.forgotForm.value.email,
-  this.forgotForm.value.mobile])
+  crypto.SHA256(this.forgotForm.value.pwd).toString()])
 .subscribe(res => {
   //console.log(res)
   if(res == 'failure'){
@@ -41,8 +42,8 @@ this.forgotAuth
 get Email(): FormControl{
   return this.forgotForm.get("email") as FormControl; 
 }
-get Mobile(): FormControl{
-  return this.forgotForm.get("email") as FormControl; 
+get Pwd(): FormControl{
+  return this.forgotForm.get("pwd") as FormControl; 
 }
 
 }
